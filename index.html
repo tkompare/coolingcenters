@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1">
+
+    <title>Where am I?</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div id=map></div>
+
+    <nav class="navbar navbar-inverse navbar-fixed-bottom" role=navigation>
+        <div class=navbar-header>
+            <button id=navbar-button type=button class=navbar-toggle data-toggle=collapse data-target=.navbar-ex1-collapse>
+                <span class=sr-only>Toggle navigation</span>
+                <span class=icon-bar></span>
+                <span class=icon-bar></span>
+                <span class=icon-bar></span>
+            </button>
+            <a id=nav-brand class=navbar-brand data-toggle=modal href=#modal-brand>Where Am I?</a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <span id=nav-address class=navbar-text>Find yourself with the <em>Find Me</em> button</span>
+            <a id=nav-agency class="navbar-text pull-right" data-toggle=modal href=#modal-agency><small><span id=temperature ></span></small></a>
+        </div>
+    </nav>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-2.1.0.min.js"><\/script>')</script>
+    <!-- Bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Google Maps API with tom@kompare.us API key -->
+    <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyD-RNpmLKNejnYNqzK6wDNbB1ouO_06bIY&sensor=true"></script>
+    <!-- Include custom JS -->
+    <script src="js/findme.js"></script>
+    <script src="js/nws.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>

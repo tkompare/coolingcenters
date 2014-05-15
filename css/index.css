@@ -1,0 +1,13 @@
+.google-map-canvas,
+.google-map-canvas * { .box-sizing(content-box); }
+
+#map {
+    position:absolute;
+    top:0;
+    bottom:50px;
+    left:0;
+    right:0
+}
+
+#map img { max-width: none; }
+
