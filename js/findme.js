@@ -51,13 +51,13 @@ var FindMe = (function($) {
             controlDiv.style.padding = '1em';
             // Set CSS for the control border.
             var controlUI = document.createElement('div');
-            controlUI.style.backgroundColor = '#333';
+            controlUI.style.backgroundColor = '#428BCA';
             //controlUI.style.color = 'white';
             controlUI.style.borderStyle = 'solid';
             controlUI.style.borderWidth = '0px';
             controlUI.style.cursor = 'pointer';
             controlUI.style.textAlign = 'center';
-            controlUI.style.borderRadius = '6px';
+            controlUI.style.borderRadius = '5px';
             controlUI.title = 'Click to find your location.';
             controlDiv.appendChild(controlUI);
             // Set CSS for the control interior.
@@ -65,10 +65,10 @@ var FindMe = (function($) {
             controlText.style.fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif';
             controlText.style.fontSize = '16px';
             controlText.style.color = '#eee';
-            controlText.style.paddingLeft = '.5em';
-            controlText.style.paddingRight = '.5em';
-            controlText.style.paddingTop = '.3em';
-            controlText.style.paddingBottom = '.3em';
+            controlText.style.paddingLeft = '.75em';
+            controlText.style.paddingRight = '.75em';
+            controlText.style.paddingTop = '.5em';
+            controlText.style.paddingBottom = '.5em';
             controlText.innerHTML = 'Find Me';
             controlUI.appendChild(controlText);
             // Setup the click event listeners.
