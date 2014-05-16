@@ -110,7 +110,7 @@ class NWSCombined extends TkJSON
 						{
 							$this->tempPeriod0 = (string)$temperature->value[0];
 							$this->tempPeriod2 = (string)$temperature->value[1];
-							$this->tempPeriod3 = (string)$temperature->value[2];
+							$this->tempPeriod4 = (string)$temperature->value[2];
 						}
 					}
 				}
