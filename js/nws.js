@@ -74,12 +74,13 @@ var NWS = (function($){
                     $('#weatherPeriod4').text(data.weatherPeriod4);
                     if(parseInt(data.temperatureApparent) > 50)
                     {
-                        $('#find-shelter').text('Find A Cooling Center').removeClass('hidden');
+                        $('#find-shelter').text('Find A Cooling Center');
                     }
                     else
                     {
-                        $('#find-shelter').text('Find A Warming Center').removeClass('hidden');
+                        $('#find-shelter').text('Find A Warming Center');
                     }
+                    $('#outlook').removeClass('hidden');
                 }
             });
         }
