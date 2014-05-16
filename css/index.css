@@ -1,13 +1,28 @@
 .google-map-canvas,
+/*
 .google-map-canvas * { .box-sizing(content-box); }
+*/
 
 #map {
     position:absolute;
     top:0;
-    bottom:50px;
+    bottom:75%;
     left:0;
     right:0
 }
 
 #map img { max-width: none; }
 
+#outlook {
+    position:absolute;
+    top:25%;
+    bottom:0;
+    left:0;
+    right:0
+}
+
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

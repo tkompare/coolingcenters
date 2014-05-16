@@ -16,6 +16,6 @@ if(isset($_GET['lat']) && isset($_GET['lng']))
 
 $NWS = new NWSData($lat,$lng);
 
-$CurrentConditions = new NWSCurrentConditions($NWS->getCurrentConditions());
+$Combined = new NWSCombined($NWS->getCombined());
 
-$CurrentConditions->returnJSON('NWSData');
+$Combined->returnJSON();

@@ -5,15 +5,18 @@
 
     $(document).ready(function(){
         // Give me all of the executable code.
-        var Chicago = new google.maps.LatLng(41.850033, -87.6500523);
+        var Chicago = new google.maps.LatLng(41.8764219,-87.6281078);
 
         var GoogleMap = new google.maps.Map(document.getElementById('map'),
             {
                 center: Chicago,
                 mapTypeControl: false,
-                zoom: 16
+                zoom: 15
             }
         );
+
+        var DefaultNWS = new NWS(41.8764219,-87.6281078);
+        DefaultNWS.getWeather();
 
         var FMe = new FindMe();
 

@@ -21,11 +21,44 @@
 <body>
     <div id=map></div>
 
-    <nav class="navbar navbar-inverse navbar-fixed-bottom" role=navigation>
-            <div id=nav-brand class=navbar-brand>Where Am I?</div>
-            <div id=nav-address class=navbar-text>Find yourself with the <em>Find Me</em> button</div>
-            <div id=nav-agency class="navbar-text pull-right"><small><span id=temperature ></span></small></div>
-    </nav>
+    <div id=outlook>
+        <div id=temperature></div>
+        <table class=table>
+            <tr id=now>
+                <td>Current Conditions</td>
+                <td id=tempCurrent></td>
+                <td id=weatherCurrent></td>
+            </tr>
+            <tr id=period0>
+                <td id=namePeriod0></td>
+                <td id=tempPeriod0></td>
+                <td id=weatherPeriod0></td>
+            </tr>
+            <tr id=period1>
+                <td id=namePeriod1></td>
+                <td id=tempPeriod1></td>
+                <td id=weatherPeriod1></td>
+            </tr>
+            <tr id=period2>
+                <td id=namePeriod2></td>
+                <td id=tempPeriod2></td>
+                <td id=weatherPeriod2></td>
+            </tr>
+            <tr id=period3>
+                <td id=namePeriod3></td>
+                <td id=tempPeriod3></td>
+                <td id=weatherPeriod3></td>
+            </tr>
+            <tr id=period4>
+                <td id=namePeriod4></td>
+                <td id=tempPeriod4></td>
+                <td id=weatherPeriod4></td>
+            </tr>
+        </table>
+        <div>
+            <button id=find-shelter type="button" class="btn btn-lg btn-primary center-block hidden" disabled></button>
+        </div>
+    </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>

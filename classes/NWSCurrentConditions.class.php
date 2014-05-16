@@ -3,19 +3,16 @@
 class NWSCurrentConditions extends TkJSON
 {
 	/* ---- Properties ---- */
-	public $humidityRelative = null;
+	private $temperatureApparent = null;
 
-	public $temperatureApparent = null;
-
-	public $temperatureDewPoint = null;
-
-	public $weatherSummary = null;
+	private $weatherSummary = null;
 
 	public function __construct($RawNWSCurrentConditionsData)
 	{
+		// Set Apparent Temperature
 		$this->temperatureApparent = (string)$RawNWSCurrentConditionsData->parameters->temperature->value;
 
-		// Weather Conditions Summary
+		// Set Weather Conditions Summary
 		foreach($RawNWSCurrentConditionsData->parameters->weather->{'weather-conditions'} as $condition)
 		{
 			if(isset($condition['weather-summary']))

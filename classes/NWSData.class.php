@@ -122,10 +122,13 @@ class NWSData
 		return $this->TheData;
 	}
 
+	public function getCombined()
+	{
+		return $this->TheData->data;
+	}
+
 	public function getCurrentConditions()
 	{
-		//print_r($this->TheData->data);
-
 		foreach($this->TheData->data as $datum)
 		{
 			if($datum['type'] == 'current observations')
@@ -133,13 +136,6 @@ class NWSData
 				return $datum;
 			}
 		}
-
-		//return $this->TheData->data[1]->parameters;
-	}
-
-	public function getCurrentTemperature()
-	{
-		return $this->TheData->data[1]->parameters->temperature->value;
 	}
 
 	/* ---- PRIVATE FUNCTIONS --- */

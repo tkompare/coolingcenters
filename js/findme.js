@@ -63,8 +63,8 @@ var FindMe = (function($) {
             // Set CSS for the control interior.
             var controlText = document.createElement('div');
             controlText.style.fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif';
-            controlText.style.fontSize = '12px';
-            controlText.style.color = '#fff';
+            controlText.style.fontSize = '16px';
+            controlText.style.color = '#eee';
             controlText.style.paddingLeft = '.5em';
             controlText.style.paddingRight = '.5em';
             controlText.style.paddingTop = '.3em';
