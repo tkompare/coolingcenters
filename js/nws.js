@@ -8,44 +8,6 @@
 var NWS = (function($){
     var constructor = function(lat,lng){
 
-        this.warnLevels = [
-            {
-                description: 'Very Hot',
-                max: 150,
-                min: 95,
-                backgroundColor: 'dd0a00',
-                textColor: 'ffffff'
-            },
-            {
-                description: 'Hot',
-                max: 94,
-                min: 85,
-                backgroundColor: 'd8dd00',
-                textColor: '000000'
-            },
-            {
-                description: '',
-                max: 84,
-                min: 32,
-                backgroundColor: 'dddddd',
-                textColor: '000000'
-            },
-            {
-                description: 'Cold',
-                max: 31,
-                min: 0,
-                backgroundColor: '00ddd7',
-                textColor: '000000'
-            },
-            {
-                description: 'Very Cold',
-                max: -1,
-                min: -100,
-                backgroundColor: '000add',
-                textColor: 'ffffff'
-            }
-        ];
-
         this.getWeather = function()
         {
             $.support.cors = true; //enables cross domain support

@@ -1,6 +1,10 @@
 /*
 .google-map-canvas, .google-map-canvas * { .box-sizing(content-box); }
 */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300);
+body {
+    font-family: 'Open Sans',"Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 
 #map {
     position:absolute;

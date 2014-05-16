@@ -62,7 +62,7 @@ var FindMe = (function($) {
             controlDiv.appendChild(controlUI);
             // Set CSS for the control interior.
             var controlText = document.createElement('div');
-            controlText.style.fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif';
+            controlText.style.fontFamily = '"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif';
             controlText.style.fontSize = '16px';
             controlText.style.color = '#eee';
             controlText.style.paddingLeft = '.75em';
