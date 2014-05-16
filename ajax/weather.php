@@ -15,7 +15,5 @@ if(isset($_GET['lat']) && isset($_GET['lng']))
 }
 
 $NWS = new NWSData($lat,$lng);
-
 $Combined = new NWSCombined($NWS->getCombined());
-
 $Combined->returnJSON();

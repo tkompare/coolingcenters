@@ -68,7 +68,9 @@ class NWSCombined extends TkJSON
 
 				foreach($datum->{'time-layout'} as $timeLayout)
 				{
-					if((string)$timeLayout->{'layout-key'} == 'k-p12h-n14-1')
+					if((string)$timeLayout->{'layout-key'} == 'k-p12h-n14-1'
+						|| (string)$timeLayout->{'layout-key'} == 'k-p12h-n13-1'
+					)
 					{
 						$this->namePeriod0 = (string)$timeLayout->{'start-valid-time'}[0]['period-name'];
 						$this->namePeriod1 = (string)$timeLayout->{'start-valid-time'}[1]['period-name'];
