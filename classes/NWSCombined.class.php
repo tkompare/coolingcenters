@@ -78,7 +78,6 @@ class NWSCombined extends TkJSON
 						break;
 					}
 				}
-				//if($this->namePeriod0 == 'Tonight')
 				if(preg_match('/night/i',$this->namePeriod0))
 				{
 					foreach($datum->parameters->temperature as $temperature)
@@ -96,7 +95,7 @@ class NWSCombined extends TkJSON
 						}
 					}
 				}
-				elseif($this->namePeriod0 == 'Today')
+				else//if($this->namePeriod0 == 'Today')
 				{
 					foreach($datum->parameters->temperature as $temperature)
 					{
