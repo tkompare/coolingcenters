@@ -11,8 +11,7 @@ abstract class TkJSON implements JsonSerializable
 
 	private function is_valid_callback($subject)
 	{
-		$identifier_syntax
-			= '/^[$_\p{L}][$_\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Pc}\x{200C}\x{200D}]*+$/u';
+		$identifier_syntax = '/^[$_\p{L}][$_\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Pc}\x{200C}\x{200D}]*+$/u';
 
 		$reserved_words = array('break', 'do', 'instanceof', 'typeof', 'case',
 														'else', 'new', 'var', 'catch', 'finally', 'return', 'void', 'continue',
@@ -29,7 +28,7 @@ abstract class TkJSON implements JsonSerializable
 	public function returnJSON()
 	{
 		header('content-type: application/json; charset=utf-8');
-		exit(json_encode($this));
+		exit(json_encode($this, JSON_HEX_TAG));
 	}
 
 	public function returnJSONP($callback)
@@ -39,11 +38,12 @@ abstract class TkJSON implements JsonSerializable
 		// Let's make sure the user knows what she's doing or isn't being a jerk.
 		if($this->is_valid_callback($callback))
 		{
-			exit($callback.'('.json_encode($this).')');
+			exit('{'.$callback.'}('.json_encode($this, JSON_HEX_TAG).')');
 		}
 		else
 		{
 			header('status: 400 Bad Request', true, 400);
+			exit;
 		}
 	}
 

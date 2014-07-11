@@ -32,6 +32,8 @@
             alert('We\'re sorry. It seems we cannot attempt to use your device to geolocate.');
         }
 
+
+
     });
 
 })(jQuery);
