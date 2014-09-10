@@ -13,12 +13,14 @@ WarmingCenters = (function ($) {
 		this.Info = [];
 
 		this.getCenters = function (WC, Map) {
+			console.log('here');
 			$.support.cors = true; //enables cross domain support
 			$.ajax({
 				type: "GET",
 				url: 'http://data.cityofchicago.org/resource/h243-v2q5.json',
 				dataType: "json",
 				success: function (data) {
+					console.log(data);
 					var x = 0;
 					for (var i in data) {
 						console.log(data[i].location.latitude);
