@@ -1,31 +1,111 @@
 /*
 .google-map-canvas, .google-map-canvas * { .box-sizing(content-box); }
 */
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:300);
+@import url(//fonts.googleapis.com/css?family=Roboto);
+
 body {
-    font-family: 'Open Sans',"Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: 'Roboto', "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+html, body {
+	height: 100%;
+	/* The html and body elements cannot have any padding or margin. */
 }
 
 #map {
-    position:absolute;
-    top:0;
-    bottom:75%;
-    left:0;
-    right:0
+	position: absolute;
+	top: 0;
+	bottom: 55%;
+	left: 0;
+	right: 0;
 }
 
-#map img { max-width: none; }
+#map img {
+	max-width: none;
+}
+
+#help {
+	position: absolute;
+	top: 45%;
+	bottom: 50%;
+	left: 0;
+	right: 0;
+	background-color: cornflowerblue;
+	color: #fafafa;
+}
 
 #outlook {
-    position:absolute;
-    top:25%;
-    bottom:0;
-    left:0;
-    right:0;
+	position: absolute;
+	top: 50%;
+	bottom: 1.75em;
+	left: 0;
+	right: 0;
+	overflow-y: scroll;
 }
 
 .center-block {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+	min-height: 100%;
+	height: auto;
+	/* Negative indent footer by its height */
+	margin: 0 auto -1.75em;
+	/* Pad bottom by footer height */
+	padding: 0 0 1.75em;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+	height: 1.75em;
+	background-color: cornflowerblue;
+	color: #fafafa;
+}
+
+a.footer-link {
+	color:#fafafa;
+}
+a.footer-link:hover {
+	color: #fafafa;
+	text-decoration: underline;
+}
+
+.bgred {
+	background-color: red;
+}
+
+.bgblue {
+	background-color: blue;
+}
+
+.middle {
+	float: none;
+	display: inline-block;
+	vertical-align: middle;
+	text-align: right;
+}
+
+.infowindow {
+	min-width: 17.5em;
+	text-align: center;
+	margin: 0px;
+}
+
+.text-red {
+	color: #ff0000;
+}
+
+.table {
+	margin-bottom: 0px;
+}
+
+#about {
+	height: 1.75em;
+	background-color: cornflowerblue;
+	color: #fafafa;
+	text-align: center;
 }

@@ -1,76 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title>Chicago Warming & Cooling Centers</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>Chicago Warming & Cooling Centers</title>
 
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/index.css" rel="stylesheet">
+	<!-- Bootstrap -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/index.css" rel="stylesheet">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
-    <![endif]-->
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="//cdnjs.cloudflare.com/service/libs/html5shiv/3.7/html5shiv.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/service/libs/respond.js/1.4.2/respond.js"></script>
+	<![endif]-->
 </head>
 <body>
-    <div id=map></div>
+<div id="wrap">
+	<div class="container">
+		<div id=map></div>
+		<div id="help">
+			<div class="container">
+				<p class="text-center">Scroll and click on a forecast below.</p>
+			</div>
+		</div>
+		<div id=outlook>
+			<div id=forecast-fetch>
+				<h5 class="text-center">Fetching the forecast from the National Weather Service...</h5>
+			</div>
+			<div id=forecast class=hidden>
+				<table class="table table-hover">
+					<tbody>
+					<tr id=now>
+						<td><strong>Right Now</strong></td>
+						<td><strong id=tempCurrent></strong></td>
+						<td><strong id=weatherCurrent></strong></td>
+					</tr>
 
-    <div id=outlook class=hidden>
-        <table class=table>
-            <tr id=now class=active>
-                <td><strong>Right Now</strong></td>
-                <td><strong id=tempCurrent></strong></td>
-                <td><strong id=weatherCurrent></strong></td>
-            </tr>
-            <tr id=period0>
-                <td id=namePeriod0></td>
-                <td id=tempPeriod0></td>
-                <td id=weatherPeriod0></td>
-            </tr>
-            <tr id=period1>
-                <td id=namePeriod1></td>
-                <td id=tempPeriod1></td>
-                <td id=weatherPeriod1></td>
-            </tr>
-            <tr id=period2>
-                <td id=namePeriod2></td>
-                <td id=tempPeriod2></td>
-                <td id=weatherPeriod2></td>
-            </tr>
-            <tr id=period3>
-                <td id=namePeriod3></td>
-                <td id=tempPeriod3></td>
-                <td id=weatherPeriod3></td>
-            </tr>
-            <tr id=period4>
-                <td id=namePeriod4></td>
-                <td id=tempPeriod4></td>
-                <td id=weatherPeriod4></td>
-            </tr>
-        </table>
-        <div>
-            <button id=find-shelter type="button" class="btn btn-lg btn-primary center-block" disabled></button>
-        </div>
-    </div>
+					<tr id=period0>
+						<td id=namePeriod0></td>
+						<td id=tempPeriod0></td>
+						<td id=weatherPeriod0></td>
+					</tr>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="js/jquery-2.1.0.min.js"><\/script>')</script>
-    <!-- Bootstrap -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- Google Maps API with tom@kompare.us API key -->
-    <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyBfG9tSQ73la5jIr1IWoCGBcUSE7e2z32A&sensor=true"></script>
-    <!-- Include custom JS -->
-    <script src="js/findme.js"></script>
-    <script src="js/nws.js"></script>
-    <script src="js/warmingcenters.js"></script>
-    <script src="js/index.js"></script>
+					<tr id=period1>
+						<td id=namePeriod1></td>
+						<td id=tempPeriod1></td>
+						<td id=weatherPeriod1></td>
+					</tr>
+
+					<tr id=period2>
+						<td id=namePeriod2></td>
+						<td id=tempPeriod2></td>
+						<td id=weatherPeriod2></td>
+					</tr>
+
+					<tr id=period3>
+						<td id=namePeriod3></td>
+						<td id=tempPeriod3></td>
+						<td id=weatherPeriod3></td>
+					</tr>
+
+					<tr id=period4>
+						<td id=namePeriod4></td>
+						<td id=tempPeriod4></td>
+						<td id=weatherPeriod4></td>
+					</tr>
+
+					<tr id=period5>
+						<td id=namePeriod5></td>
+						<td id=tempPeriod5></td>
+						<td id=weatherPeriod5></td>
+					</tr>
+
+					<tr id=period6>
+						<td id=namePeriod6></td>
+						<td id=tempPeriod6></td>
+						<td id=weatherPeriod6></td>
+					</tr>
+
+					<tr id=period7>
+						<td id=namePeriod7></td>
+						<td id=tempPeriod7></td>
+						<td id=weatherPeriod7></td>
+					</tr>
+
+					<tr id=period8>
+						<td id=namePeriod8></td>
+						<td id=tempPeriod8></td>
+						<td id=weatherPeriod8></td>
+					</tr>
+					</tbody>
+					<tfoot>
+					<tr id="about">
+						<td colspan="3"><small>About this website | &copy;Tom Kompare | MIT License</small></td>
+					</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="footer">
+	<div class="container middle">
+		<span class="text-red">&#x2736; &#x2736;</span> <a class="footer-link" href="http://www.cityofchicago.org/city/en/depts/fss/provdrs/emerg/svcs/dfss_warming_centers.html" target="_blank">Chicago Warming & Cooling Centers</a> <span class="text-red">&#x2736; &#x2736;</span>
+	</div>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/jquery-2.1.0.min.js"><\/script>')</script>
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Google Maps API with tom@kompare.us API key -->
+<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyBfG9tSQ73la5jIr1IWoCGBcUSE7e2z32A&sensor=true"></script>
+<!-- Date.js -->
+<script src="js/date.js"></script>
+<!-- Include custom JS -->
+<script src="js/findme.js"></script>
+<script src="js/nws.js"></script>
+<script src="js/centers.js"></script>
+<script src="js/index.js"></script>
 </body>
 </html>

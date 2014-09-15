@@ -3,9 +3,9 @@
 class NWSCurrentConditions extends TkJSON
 {
 	/* ---- Properties ---- */
-	private $temperatureApparent = null;
+	private $temperatureApparent = NULL;
 
-	private $weatherSummary = null;
+	private $weatherSummary = NULL;
 
 	public function __construct($RawNWSCurrentConditionsData)
 	{
@@ -25,13 +25,13 @@ class NWSCurrentConditions extends TkJSON
 		//
 	}
 
-	public function jsonSerialize() {
+	public function jsonSerialize()
+	{
 
 		$return = array(
-			'temperatureApparent' => $this->temperatureApparent,
-			'weatherSummary' => $this->weatherSummary
-		);
-		return($return);
+				'temperatureApparent' => $this->temperatureApparent,
+				'weatherSummary'      => $this->weatherSummary);
+		return ($return);
 	}
 
 } 

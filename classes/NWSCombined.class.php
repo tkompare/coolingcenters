@@ -3,44 +3,26 @@
 class NWSCombined extends TkJSON
 {
 	/* ---- Properties ---- */
-	private $temperatureApparent = null;
 
-	private $weatherSummary = null;
-
-	private $namePeriod0 = null;
-
-	private $namePeriod1 = null;
-
-	private $namePeriod2 = null;
-
-	private $namePeriod3 = null;
-
-	private $namePeriod4 = null;
-
-	private $tempPeriod0 = null;
-
-	private $tempPeriod1 = null;
-
-	private $tempPeriod2 = null;
-
-	private $tempPeriod3 = null;
-
-	private $tempPeriod4 = null;
-
-	private $weatherPeriod0 = null;
-
-	private $weatherPeriod1 = null;
-
-	private $weatherPeriod2 = null;
-
-	private $weatherPeriod3 = null;
-
-	private $weatherPeriod4 = null;
+	// Current conditions
+	private $temperatureApparent = NULL;
+	private $weatherSummary = NULL;
+	private $currentDay = NULL;
 
 
+	//How many forecast periods?
+	private $numPeriods = 10;
+
+	// What forecast attributes are being collected from the NWS API?
+	private $Name = array();
+	private $DayName = array();
+	private $Temperature = array();
+	private $Weather = array();
 
 	public function __construct($RawNWSData)
 	{
+		date_default_timezone_set('America/Chicago');
+
 		foreach($RawNWSData as $datum)
 		{
 			if($datum['type'] == 'current observations')
@@ -57,91 +39,101 @@ class NWSCombined extends TkJSON
 						break;
 					}
 				}
+
+				// Set current day
+				$this->currentDay = date('l|h:i A');
 			}
 			elseif($datum['type'] == 'forecast')
 			{
-				$this->weatherPeriod0 = (string)$datum->parameters->weather->{'weather-conditions'}[0]['weather-summary'];
-				$this->weatherPeriod1 = (string)$datum->parameters->weather->{'weather-conditions'}[1]['weather-summary'];
-				$this->weatherPeriod2 = (string)$datum->parameters->weather->{'weather-conditions'}[2]['weather-summary'];
-				$this->weatherPeriod3 = (string)$datum->parameters->weather->{'weather-conditions'}[3]['weather-summary'];
-				$this->weatherPeriod4 = (string)$datum->parameters->weather->{'weather-conditions'}[4]['weather-summary'];
+				for($i = 0; $i < $this->numPeriods; $i++)
+				{
+					$this->Weather[$i] = (string)$datum->parameters->weather->{'weather-conditions'}[$i]['weather-summary'];
+				}
 
 				foreach($datum->{'time-layout'} as $timeLayout)
 				{
-					if((string)$timeLayout->{'layout-key'} == 'k-p12h-n14-1'
-						|| (string)$timeLayout->{'layout-key'} == 'k-p12h-n13-1'
+					if((string)$timeLayout->{'layout-key'} == 'k-p12h-n15-1' || (string)$timeLayout->{'layout-key'} == 'k-p12h-n14-1' || (string)$timeLayout->{'layout-key'} == 'k-p12h-n13-1'
 					)
 					{
-						$this->namePeriod0 = (string)$timeLayout->{'start-valid-time'}[0]['period-name'];
-						$this->namePeriod1 = (string)$timeLayout->{'start-valid-time'}[1]['period-name'];
-						$this->namePeriod2 = (string)$timeLayout->{'start-valid-time'}[2]['period-name'];
-						$this->namePeriod3 = (string)$timeLayout->{'start-valid-time'}[3]['period-name'];
-						$this->namePeriod4 = (string)$timeLayout->{'start-valid-time'}[4]['period-name'];
+						for($i = 0; $i < $this->numPeriods; $i++)
+						{
+							$this->DayName[$i] = date('l|h:i A', strtotime($timeLayout->{'start-valid-time'}[$i]));
+							$this->Name[$i] = (string)$timeLayout->{'start-valid-time'}[$i]['period-name'];
+						}
+
 						break;
 					}
 				}
-				if(preg_match('/night/i',$this->namePeriod0))
+
+
+				if(preg_match('/night/i', $this->Name[0])) // matches 'Tonight' and 'Overnight'
 				{
 					foreach($datum->parameters->temperature as $temperature)
 					{
 						if((string)$temperature->name == 'Daily Minimum Temperature')
 						{
-							$this->tempPeriod0 = (string)$temperature->value[0];
-							$this->tempPeriod2 = (string)$temperature->value[1];
-							$this->tempPeriod4 = (string)$temperature->value[2];
+							$j = 0;
+							for($i = 0; $i < $this->numPeriods; $i = $i+2)
+							{
+								$this->Temperature[$i] = (string)$temperature->value[$j];
+								$j++;
+							}
 						}
 						elseif((string)$temperature->name == 'Daily Maximum Temperature')
 						{
-							$this->tempPeriod1 = (string)$temperature->value[0];
-							$this->tempPeriod3 = (string)$temperature->value[1];
+							$j = 0;
+							for($i = 1; $i < $this->numPeriods; $i = $i+2)
+							{
+								$this->Temperature[$i] = (string)$temperature->value[$j];
+								$j++;
+							}
 						}
 					}
 				}
-				else//if($this->namePeriod0 == 'Today')
+				else
 				{
 					foreach($datum->parameters->temperature as $temperature)
 					{
+
 						if((string)$temperature->name == 'Daily Minimum Temperature')
 						{
-							$this->tempPeriod1 = (string)$temperature->value[0];
-							$this->tempPeriod3 = (string)$temperature->value[1];
+							$j = 0;
+							for($i = 1; $i < $this->numPeriods; $i = $i+2)
+							{
+								$this->Temperature[$i] = (string)$temperature->value[$j];
+								$j++;
+							}
 						}
 						elseif((string)$temperature->name == 'Daily Maximum Temperature')
 						{
-							$this->tempPeriod0 = (string)$temperature->value[0];
-							$this->tempPeriod2 = (string)$temperature->value[1];
-							$this->tempPeriod4 = (string)$temperature->value[2];
+							$j = 0;
+							for($i = 0; $i < $this->numPeriods; $i = $i+2)
+							{
+								$this->Temperature[$i] = (string)$temperature->value[$j];
+								$j++;
+							}
 						}
+
 					}
 				}
 			}
 		}
-
-		//
 	}
 
-	public function jsonSerialize() {
-
+	public function jsonSerialize()
+	{
 		$return = array(
-			'temperatureApparent' => $this->temperatureApparent,
-			'weatherSummary' => $this->weatherSummary,
-			'namePeriod0' => $this->namePeriod0,
-			'tempPeriod0' => $this->tempPeriod0,
-			'weatherPeriod0' => $this->weatherPeriod0,
-			'namePeriod1' => $this->namePeriod1,
-			'tempPeriod1' => $this->tempPeriod1,
-			'weatherPeriod1' => $this->weatherPeriod1,
-			'namePeriod2' => $this->namePeriod2,
-			'tempPeriod2' => $this->tempPeriod2,
-			'weatherPeriod2' => $this->weatherPeriod2,
-			'namePeriod3' => $this->namePeriod3,
-			'tempPeriod3' => $this->tempPeriod3,
-			'weatherPeriod3' => $this->weatherPeriod3,
-			'namePeriod4' => $this->namePeriod4,
-			'tempPeriod4' => $this->tempPeriod4,
-			'weatherPeriod4' => $this->weatherPeriod4
+				'temperatureApparent' => $this->temperatureApparent,
+				'weatherSummary'      => $this->weatherSummary,
+				'currentDay'          => $this->currentDay,
+		    'forecastPeriods'     => $this->numPeriods,
+		    'Temperature'         => $this->Temperature,
+		    'Weather'             => $this->Weather,
+		    'Name'                => $this->Name,
+		    'DayName'             => $this->DayName
 		);
-		return($return);
+
+		return ($return);
 	}
 
 } 

@@ -5,48 +5,120 @@
  * @classDestription - National Weather Service variables and functions.
  * @class - NWS
  */
-var NWS = (function($){
-    var constructor = function(lat,lng){
+var NWS;
+NWS = (function ($) {
 
-        this.getWeather = function()
-        {
-            $.support.cors = true; //enables cross domain support
-            $.ajax({
-                type: "GET",
-                url: '/ajax/weather.php?lat='+lat+'&lng='+lng,
-                dataType: "json",
-                success: function(data) {
-                    console.log(data);
-                    $('#tempCurrent').text(data.temperatureApparent).append('&deg;');
-                    $('#weatherCurrent').text(data.weatherSummary);
-                    $('#namePeriod0').text(data.namePeriod0);
-                    $('#tempPeriod0').html(data.tempPeriod0).append('&deg;');
-                    $('#weatherPeriod0').text(data.weatherPeriod0);
-                    $('#namePeriod1').text(data.namePeriod1);
-                    $('#tempPeriod1').text(data.tempPeriod1).append('&deg;');
-                    $('#weatherPeriod1').text(data.weatherPeriod1);
-                    $('#namePeriod2').text(data.namePeriod2);
-                    $('#tempPeriod2').text(data.tempPeriod2).append('&deg;');
-                    $('#weatherPeriod2').text(data.weatherPeriod2);
-                    $('#namePeriod3').text(data.namePeriod3);
-                    $('#tempPeriod3').text(data.tempPeriod3).append('&deg;');
-                    $('#weatherPeriod3').text(data.weatherPeriod3);
-                    $('#namePeriod4').text(data.namePeriod4);
-                    $('#tempPeriod4').text(data.tempPeriod4).append('&deg;');
-                    $('#weatherPeriod4').text(data.weatherPeriod4);
-                    if(parseInt(data.temperatureApparent) > 50)
-                    {
-                        $('#find-shelter').text('Find A Cooling Center');
-                    }
-                    else
-                    {
-                        $('#find-shelter').text('Find A Warming Center');
-                    }
-                    $('#outlook').removeClass('hidden');
-                }
-            });
-        }
-    };
-    return constructor;
+	'use strict';
+
+	var constructor = function (lat, lng, weatherUrl) {
+
+		this.setTableRowClass = function (domId, temperature) {
+			if (parseInt(temperature) > 85) {
+				$('#' + domId).addClass('danger');
+			}
+			else if (parseInt(temperature) < 55) {
+				$('#' + domId).addClass('info');
+			}
+		}
+
+		this.fixTwelveHour = function (time) {
+			if (time.toLowerCase() == '12:00pm' || time.toLowerCase() == '12:00 pm') {
+				return '12:00';
+			}
+			else if (time.toLowerCase() == '12:00am' || time.toLowerCase() == '12:00 am') {
+				return '0:00';
+			}
+			return time;
+		}
+
+		this.setMapIcons = function (Centers, theDay) {
+			var self = this;
+			var dayTime = theDay.split('|');
+
+			var j = 0;
+			var openCount = 0;
+			for (var i in Centers.CenterData) {
+				var dynamicOpen = dayTime[0].toLowerCase() + '_open';
+				var dynamicClose = dayTime[0].toLowerCase() + '_close';
+				if (
+						Centers.CenterData[j][dynamicOpen] === 'CLOSED'
+								|| Centers.CenterData[j][dynamicClose] === 'CLOSED'
+								|| Centers.CenterData[j][dynamicOpen] == ''
+								|| Centers.CenterData[j][dynamicClose] == ''
+						) {
+					Centers.Markers[j].setIcon('img/grey.png');
+				}
+				else {
+					// Figure out open date of today
+					var tempTimeOpen = self.fixTwelveHour(Centers.CenterData[i][dynamicOpen]);
+					var openDT = Date.parse(dayTime[0] + ' ' + tempTimeOpen).add(7).days();
+
+					// Figure out close date of today
+					var tempTimeClose = self.fixTwelveHour(Centers.CenterData[i][dynamicClose]);
+					var closeDT = Date.parse(dayTime[0] + ' ' + tempTimeClose).add(7).days();
+
+					// Date to compare
+					var thisTime = dayTime[1];
+
+					// fix the time to compare to more reasonable interpretation of NWS's daytime and evening/nighttime.
+					if (thisTime == '06:00 AM') {
+						thisTime = '1:00 PM';
+					}
+					else if (thisTime == '06:00 PM') {
+						thisTime = '11:00 PM';
+					}
+					var whatToParse = dayTime[0] + ' ' + self.fixTwelveHour(thisTime);
+					var thisDate = Date.parse(whatToParse).add(7).days();
+
+					if (thisDate.between(openDT, closeDT) == true) {
+						Centers.Markers[j].setIcon('img/red.png');
+						openCount++;
+					}
+					else {
+						Centers.Markers[j].setIcon('img/grey.png');
+					}
+				}
+
+				// Iterator
+				j++;
+			}
+			if (openCount == 0) {
+				alert('Sorry, we could not find an open warming/cooling center for this forecast period. Please call 311 for assistance. Emergency shelter may be available.');
+			}
+		}
+
+		this.getWeather = function (Centers) {
+			var self = this;
+
+			$.ajax({
+				type: "GET",
+				url: weatherUrl + '?lat=' + lat + '&lng=' + lng,
+				dataType: "json",
+				success: function (data) {
+					$('#tempCurrent').text(data.temperatureApparent).append('&deg;');
+					$('#weatherCurrent').text(data.weatherSummary);
+					$('#now').click(function () {
+						self.setMapIcons(Centers, data.currentDay);
+					});
+
+					for(var i = 0; i < data.forecastPeriods; i++)
+					{
+						$('#namePeriod'+ i.toString()).text(data.Name[i]);
+						$('#tempPeriod'+ i.toString()).html(data.Temperature[i]).append('&deg;');
+						$('#weatherPeriod'+ i.toString()).text(data.Weather[i]);
+						self.setTableRowClass('period'+i,data.Temperature[i]);
+						$('#period'+i.toString()).click(function() {
+							var matched = $(this).attr('id').match(/[0-9]+/);
+							self.setMapIcons(Centers, data.DayName[matched]);
+						});
+
+					}
+					$('#forecast-fetch').addClass('hidden');
+					$('#forecast').removeClass('hidden');
+				}
+			});
+		}
+	};
+	return constructor;
 
 })(jQuery);

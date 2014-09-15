@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class NWSData
  */
@@ -10,12 +11,12 @@ class NWSData
 	/**
 	 * @var float
 	 */
-	private $lat = null;
+	private $lat = NULL;
 
 	/**
 	 * @var float
 	 */
-	private $lng = null;
+	private $lng = NULL;
 
 	/* ---- BOUNDARIES OF LAT LNG ---- */
 	/**
@@ -60,23 +61,24 @@ class NWSData
 	/**
 	 * @var string
 	 */
-	private $url = null;
+	private $url = NULL;
 
 	/* ---- XML OBJECT ---- */
 
 	/**
 	 * @var object
 	 */
-	private $TheData = null;
+	private $TheData = NULL;
 
 	/* ---- PUBLIC FUNCTIONS ---- */
 
 	/**
 	 * @param $lat
 	 * @param $lng
+	 *
 	 * @throws Exception
 	 */
-	public function __construct($lat,$lng)
+	public function __construct($lat, $lng)
 	{
 		// Place the parameters into properties
 		$this->lat = floatval($lat);
@@ -92,28 +94,31 @@ class NWSData
 
 			// Make the call to NWS for the data
 			$ch = curl_init();
-			curl_setopt ($ch, CURLOPT_URL, $this->url);
-			curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch, CURLOPT_HEADER, false);
-			curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, 5);
+			curl_setopt($ch, CURLOPT_URL, $this->url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_HEADER, FALSE);
+			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
 			$resp = curl_exec($ch);
 			$this->TheData = new SimpleXMLElement($resp);
 
 			// check if the response is empty
-			if (empty($this->TheData))
+			if(empty($this->TheData))
 			{
-				throw new \Exception('Empty response from the National Weather Service.');
+				header($_SERVER['SERVER_PROTOCOL'].' 503 Service Unavailable: Empty response from the National Weather Service.', TRUE, 503);
+				exit;
 			}
 
 			// check if the response is an error message
-			if ($this->TheData->h2 == 'ERROR')
+			if($this->TheData->h2 == 'ERROR')
 			{
-				throw new \Exception('Error response from the National Weather Service.');
+				header($_SERVER['SERVER_PROTOCOL'].' 500 Internal Server Error: Error response from the National Weather Service.', TRUE, 500);
+				exit;
 			}
 		}
 		else
 		{
-			return false;
+			header($_SERVER['SERVER_PROTOCOL'].' 400 Bad Request: Requires valid \'lat\' and \'lng\' GET parameters', TRUE, 400);
+			exit;
 		}
 	}
 
@@ -145,25 +150,19 @@ class NWSData
 	 */
 	private function isValidInput()
 	{
-		if(
-				is_float($this->lat)
-				&& is_float($this->lng)
-				&& ($this->latMin <= $this->lat)
-				&& ($this->lat <= $this->latMax)
-				&& ($this->lngMin <= $this->lng)
-				&& ($this->lng <= $this->lngMax)
+		if(is_float($this->lat) && is_float($this->lng) && ($this->latMin <= $this->lat) && ($this->lat <= $this->latMax) && ($this->lngMin <= $this->lng) && ($this->lng <= $this->lngMax)
 		)
 		{
-			return true;
+			return TRUE;
 		}
 		else
 		{
-			return false;
+			return FALSE;
 		}
 	}
 
 	private function constructURL()
 	{
-		$this->url = $this->urlPrefix . $this->urlLat . $this->lat . $this->urlLng . $this->lng . $this->urlSuffix;
+		$this->url = $this->urlPrefix.$this->urlLat.$this->lat.$this->urlLng.$this->lng.$this->urlSuffix;
 	}
 } 
