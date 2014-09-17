@@ -5,6 +5,7 @@
 
 body {
 	font-family: 'Roboto', "Helvetica Neue", Helvetica, Arial, sans-serif;
+	background-color: cornflowerblue;
 }
 
 html, body {
@@ -41,6 +42,7 @@ html, body {
 	left: 0;
 	right: 0;
 	overflow-y: scroll;
+	background-color: cornflowerblue;
 }
 
 .center-block {
@@ -101,6 +103,7 @@ a.footer-link:hover {
 
 .table {
 	margin-bottom: 0px;
+	background-color: #fafafa;
 }
 
 #about {
