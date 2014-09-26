@@ -49,6 +49,7 @@ html, body {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
+	text-align: center;
 }
 
 /* Wrapper for page content to push down footer */

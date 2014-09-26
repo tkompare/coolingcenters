@@ -16,7 +16,7 @@ NWS = (function ($) {
 			if (parseInt(temperature) > 85) {
 				$('#' + domId).addClass('danger');
 			}
-			else if (parseInt(temperature) < 55) {
+			else if (parseInt(temperature) < 32) {
 				$('#' + domId).addClass('info');
 			}
 		}
