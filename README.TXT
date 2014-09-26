@@ -1,0 +1,3 @@
+The web application was built by Tom Kompare as a public service. It is hosted by Smart Chicago. The data in which this web application relies is published by the City of Chicago.
+
+More to come soon...

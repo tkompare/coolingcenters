@@ -34,7 +34,6 @@ NWS = (function ($) {
 		this.setMapIcons = function (Centers, theDay) {
 			var self = this;
 			var dayTime = theDay.split('|');
-
 			var j = 0;
 			var openCount = 0;
 			for (var i in Centers.CenterData) {
@@ -99,6 +98,7 @@ NWS = (function ($) {
 					$('#weatherCurrent').text(data.weatherSummary);
 					$('#now').click(function () {
 						self.setMapIcons(Centers, data.currentDay);
+						$('#help-p').text('Centers Open Right Now Are Red.');
 					});
 
 					for(var i = 0; i < data.forecastPeriods; i++)
@@ -110,6 +110,8 @@ NWS = (function ($) {
 						$('#period'+i.toString()).click(function() {
 							var matched = $(this).attr('id').match(/[0-9]+/);
 							self.setMapIcons(Centers, data.DayName[matched]);
+							$('#help-p').text('Centers Open '+data.Name[matched]+' Are Red.');
+							console.log(data);
 						});
 
 					}

@@ -113,3 +113,11 @@ a.footer-link:hover {
 	color: #fafafa;
 	text-align: center;
 }
+
+#about a {
+	color:#fafafa;
+}
+#about a:hover {
+	color: #fafafa;
+	text-decoration: underline;
+}

@@ -3,16 +3,20 @@
  */
 (function ($, google) {
 
-	var fontsize = function () {
+	var resizeFont = function () {
 		var fontSize = $('#help').height() * 0.67; // 10% of container height
-		$('#scroll-div p').css('font-size', fontSize);
+		if(fontSize > 20)
+		{
+			fontSize = 20;
+		}
+		$('#help-p').css('font-size', fontSize);
 	};
-	$(window).resize(fontsize);
+	$(window).resize(resizeFont);
 
 	// Give me all of the executable code.
 	$(document).ready(function () {
 
-		fontsize();
+		resizeFont();
 
 		// What url do I get the weather data from?
 		var weatherUrl = 'service/weather.php';

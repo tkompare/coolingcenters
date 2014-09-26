@@ -24,8 +24,8 @@
 	<div class="container">
 		<div id=map></div>
 		<div id="help">
-			<div id="scroll-div" class="container">
-				<p class="center-block">Scroll and click on a forecast below.</p>
+			<div id="help-div" class="container">
+				<p id="help-p" class="center-block">Scroll and click on a forecast below.</p>
 			</div>
 		</div>
 		<div id=outlook>
@@ -97,7 +97,7 @@
 					</tbody>
 					<tfoot>
 					<tr id="about">
-						<td colspan="3"><div id="about-div"><span>About this website | &copy;Tom Kompare | MIT License</span></div></td>
+						<td colspan="3"><div id="about-div"><span><a data-toggle="modal" href="#modal-about">About this website</a> | <a data-toggle="modal" href="#modal-copyright">&copy;Tom Kompare</a> | <a data-toggle="modal" href="#modal-license">MIT License</a></span></div></td>
 					</tr>
 					</tfoot>
 				</table>
@@ -108,6 +108,73 @@
 <div id="footer">
 	<div class="container center-block">
 		<span class="text-red">&#x2736; &#x2736;</span> <a class="footer-link" href="http://www.cityofchicago.org/city/en/depts/fss/provdrs/emerg/svcs/dfss_warming_centers.html" target="_blank">Chicago Warming & Cooling Centers</a> <span class="text-red">&#x2736; &#x2736;</span>
+	</div>
+</div>
+
+<!-- About Modal -->
+<div class="modal fade" id="modal-about" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Warming & Cooling Centers</h4>
+			</div>
+			<div class="modal-body">
+				<small>The web application was built by <a href="http://about.me/tomkompare" target="_blank">Tom Kompare</a> as a public service. Even though the web application uses the latest information available published by the City of Chicago, please phone ahead to the centers (or 311) before travelling. Hours of operation may have changed or may be extended during extreme weather events, Some centers may be closed holidays.</small>
+				<p><br><button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button><br></p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Copyright Modal -->
+<div class="modal fade" id="modal-copyright" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">&copy;Tom Kompare</h4>
+			</div>
+			<div class="modal-body">
+				<small>The web application was built by <a href="http://about.me/tomkompare" target="_blank">Tom Kompare</a> as a public service. It is hosted by <a href="http://www.smartchicagocollaborative.org/" target="_blank">Smart Chicago</a>. The data in which this web application relies is published by the <a href="https://data.cityofchicago.org/Health-Human-Services/Warming-Centers/h243-v2q5" target="_blank">City of Chicago</a>.</small>
+				<p><br><button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button><br></p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- License Modal -->
+<div class="modal fade" id="modal-license" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">License</h4>
+			</div>
+			<div class="modal-body">
+				<small>
+					Copyright (c) Tom Kompare<br><br>
+					Permission is hereby granted, free of charge, to any person obtaining a copy
+					of this software and associated documentation files (the "Software"), to deal
+					in the Software without restriction, including without limitation the rights to
+					use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+					of the Software, and to permit persons to whom the Software is furnished to do
+					so, subject to the following conditions:
+					The above copyright notice and this permission notice shall be included in
+					all copies or substantial portions of the Software.
+					THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+					IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+					FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+					AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+					LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+					OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+					SOFTWARE.<br><br>
+					More information about this license is available on the Open Source
+					Initiative web site. (http://opensource.org/licenses/mit-license.php)
+				</small>
+				<p><br><button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button><br></p>
+			</div>
+		</div>
 	</div>
 </div>
 
