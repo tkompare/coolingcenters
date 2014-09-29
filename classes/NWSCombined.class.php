@@ -57,8 +57,15 @@ class NWSCombined extends TkJSON
 					{
 						for($i = 0; $i < $this->numPeriods; $i++)
 						{
-							$this->DayName[$i] = date('l|h:i A', strtotime($timeLayout->{'start-valid-time'}[$i]));
 							$this->Name[$i] = (string)$timeLayout->{'start-valid-time'}[$i]['period-name'];
+							preg_match('/^([0-9\-]*)/',$timeLayout->{'start-valid-time'}[$i], $matches);
+							$thisDate = $matches[0];
+							$thisTime = '13:00';
+							if(preg_match('/night/i', $this->Name[$i]))
+							{
+								$thisTime = '23:30';
+							}
+							$this->DayName[$i] = date('l|h:i A', strtotime($thisDate.' '.$thisTime));
 						}
 
 						break;
